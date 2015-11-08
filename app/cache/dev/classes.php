@@ -2514,6 +2514,36 @@ return $controller;
 }
 namespace Symfony\Component\Security\Http
 {
+use Symfony\Component\HttpFoundation\Request;
+interface AccessMapInterface
+{
+public function getPatterns(Request $request);
+}
+}
+namespace Symfony\Component\Security\Http
+{
+use Symfony\Component\HttpFoundation\RequestMatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+class AccessMap implements AccessMapInterface
+{
+private $map = array();
+public function add(RequestMatcherInterface $requestMatcher, array $attributes = array(), $channel = null)
+{
+$this->map[] = array($requestMatcher, $attributes, $channel);
+}
+public function getPatterns(Request $request)
+{
+foreach ($this->map as $elements) {
+if (null === $elements[0] || $elements[0]->matches($request)) {
+return array($elements[1], $elements[2]);
+}
+}
+return array(null, null);
+}
+}
+}
+namespace Symfony\Component\Security\Http
+{
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
@@ -3005,7 +3035,7 @@ namespace
 {
 class Twig_Environment
 {
-const VERSION ='1.22.3';
+const VERSION ='1.23.1';
 protected $charset;
 protected $loader;
 protected $debug;
@@ -3209,6 +3239,14 @@ return $template;
 }
 public function isTemplateFresh($name, $time)
 {
+if (0 === $this->lastModifiedExtension) {
+foreach ($this->extensions as $extension) {
+$r = new ReflectionObject($extension);
+if (file_exists($r->getFileName()) && ($extensionTime = filemtime($r->getFileName())) > $this->lastModifiedExtension) {
+$this->lastModifiedExtension = $extensionTime;
+}
+}
+}
 return $this->lastModifiedExtension <= $time && $this->getLoader()->isFresh($name, $time);
 }
 public function resolveTemplate($names)
@@ -3328,7 +3366,13 @@ return $this->charset;
 public function initRuntime()
 {
 $this->runtimeInitialized = true;
-foreach ($this->getExtensions() as $extension) {
+foreach ($this->getExtensions() as $name => $extension) {
+if (!$extension instanceof Twig_Extension_InitRuntimeInterface) {
+$m = new ReflectionMethod($extension,'initRuntime');
+if ('Twig_Extension'!== $m->getDeclaringClass()->getName()) {
+@trigger_error(sprintf('Defining the initRuntime() method in the "%s" extension is deprecated. Use the `needs_environment` option to get the Twig_Environment instance in filters, functions, or tests; or explicitly implement Twig_Extension_InitRuntimeInterface if needed (not recommended).', $name), E_USER_DEPRECATED);
+}
+}
 $extension->initRuntime($this);
 }
 }
@@ -3345,14 +3389,15 @@ return $this->extensions[$name];
 }
 public function addExtension(Twig_ExtensionInterface $extension)
 {
+$name = $extension->getName();
 if ($this->extensionInitialized) {
-throw new LogicException(sprintf('Unable to register extension "%s" as extensions have already been initialized.', $extension->getName()));
+throw new LogicException(sprintf('Unable to register extension "%s" as extensions have already been initialized.', $name));
 }
-$r = new ReflectionObject($extension);
-if (($extensionTime = filemtime($r->getFileName())) > $this->lastModifiedExtension) {
-$this->lastModifiedExtension = $extensionTime;
+if (isset($this->extensions[$name])) {
+@trigger_error(sprintf('The possibility to register the same extension twice ("%s") is deprecated and will be removed in Twig 2.0. Use proper PHP inheritance instead.', $name), E_USER_DEPRECATED);
 }
-$this->extensions[$extension->getName()] = $extension;
+$this->lastModifiedExtension = 0;
+$this->extensions[$name] = $extension;
 }
 public function removeExtension($name)
 {
@@ -3598,20 +3643,19 @@ return $this->binaryOperators;
 }
 public function computeAlternatives($name, $items)
 {
-$alternatives = array();
-foreach ($items as $item) {
-$lev = levenshtein($name, $item);
-if ($lev <= strlen($name) / 3 || false !== strpos($item, $name)) {
-$alternatives[$item] = $lev;
-}
-}
-asort($alternatives);
-return array_keys($alternatives);
+@trigger_error(sprintf('The %s method is deprecated and will be removed in Twig 2.0.', __METHOD__), E_USER_DEPRECATED);
+return Twig_Error_Syntax::computeAlternatives($name, $items);
 }
 protected function initGlobals()
 {
 $globals = array();
-foreach ($this->extensions as $extension) {
+foreach ($this->extensions as $name => $extension) {
+if (!$extension instanceof Twig_Extension_GlobalsInterface) {
+$m = new ReflectionMethod($extension,'getGlobals');
+if ('Twig_Extension'!== $m->getDeclaringClass()->getName()) {
+@trigger_error(sprintf('Defining the getGlobals() method in the "%s" extension is deprecated without explicitly implementing Twig_Extension_GlobalsInterface.', $name), E_USER_DEPRECATED);
+}
+}
 $extGlob = $extension->getGlobals();
 if (!is_array($extGlob)) {
 throw new UnexpectedValueException(sprintf('"%s::getGlobals()" must return an array of globals.', get_class($extension)));
@@ -3934,11 +3978,9 @@ $parser->getStream()->next();
 return array($name, $test);
 }
 }
-$message = sprintf('The test "%s" does not exist', $name);
-if ($alternatives = $env->computeAlternatives($name, array_keys($env->getTests()))) {
-$message = sprintf('%s. Did you mean "%s"', $message, implode('", "', $alternatives));
-}
-throw new Twig_Error_Syntax($message, $line, $parser->getFilename());
+$e = new Twig_Error_Syntax(sprintf('Unknown "%s" test.', $name), $line, $parser->getFilename());
+$e->addSuggestions($name, array_keys($env->getTests()));
+throw $e;
 }
 protected function getTestNodeClass(Twig_Parser $parser, $test)
 {

@@ -1,0 +1,32 @@
+AppBundle\Entity\Supplier:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Entity\SupplierRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        address:
+            type: string
+            length: 255
+        city:
+            type: string
+            length: '100'
+        postalCode:
+            type: string
+            length: '5'
+            column: postal_code
+        contract:
+            type: string
+            length: '50'
+        clientNumber:
+            type: string
+            length: '50'
+            column: client_number
+    lifecycleCallbacks: {  }

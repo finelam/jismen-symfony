@@ -1,0 +1,14 @@
+AppBundle\Entity\TVA:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Entity\TVARepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        rate:
+            type: float
+    lifecycleCallbacks: {  }

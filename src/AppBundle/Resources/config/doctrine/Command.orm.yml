@@ -1,0 +1,27 @@
+AppBundle\Entity\Command:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Entity\ComandRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        paiement:
+            type: string
+            length: '25'
+        address:
+            type: string
+            length: 255
+        city:
+            type: string
+            length: '100'
+        postalCode:
+            type: string
+            length: '5'
+        recipient:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

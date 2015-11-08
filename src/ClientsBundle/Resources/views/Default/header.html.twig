@@ -1,0 +1,26 @@
+{% for category in categories %}
+  {% if category.enabled %}
+    <li>
+      <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expended="false">
+        {{ category.label }} <b class="carret"></b>
+      </a>
+      <ul>
+        {% for sub in category.sub_category %}
+          {% if sub.enabled %}
+            <a href="">{{ sub.label }}</a>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+  {% endif %}
+{% endfor %}
+{% if app.user %}
+  <li>
+    <a href="">VIP</a>
+  </li>
+  {% if is_granted('ROLE_ADMIN') %}
+    <li>
+      <a href="">Administration</a>
+    </li>
+  {% endif %}
+{% endif %}

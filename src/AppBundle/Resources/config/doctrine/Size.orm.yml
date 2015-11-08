@@ -1,0 +1,15 @@
+AppBundle\Entity\Size:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Entity\SizeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '10'
+    lifecycleCallbacks: {  }

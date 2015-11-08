@@ -1,1 +1,8 @@
-Hello {{ name }}!
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h3>
+  Hello {{app.user.username}} !!!
+</h3>
+  C'est ici qu'on va faire de la magie des ordinateurs !
+{% endblock body %}

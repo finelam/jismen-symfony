@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Jismen{% endblock %}</title>
+  {% block stylesheets %}
+  {% stylesheets '@bootstrap_css' '@main_css' %}
+  <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+  {% endstylesheets %}
+  {% endblock %}
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+  {% block navbar %}
+  <nav class="navbar navbar-fixed-top">
+    <div class="navbar-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="pull-left">
+              <ul class="userMenu">
+                <li>
+                  <a href="callto:+33199999999">
+                    <span><i class="glyphicon glyphicon-phone-alt "></i></span>
+                    <span class="hidden-xs">+33(0) 1 99 99 99 99</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="pull-right">
+              <ul class="userMenu">
+                <li>
+                  <a href="">
+                    <span class="hidden-xs"> Mon compte </span>
+                    <i class="glyphicon glyphicon-user hide visible-xs "></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="" data-target="modal-connexion" data-toggle="modal">
+                    <span class="hidden-xs"> Connexion </span>
+                    <i class="glyphicon glyphicon-log-in hidden visible-xs"></i>
+                  </a>
+                </li>
+                <li class="hidden-xs">
+                  <a href="" data-target="#modal-inscription" data-toggle="modal">Inscription</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="navbar-header col-md-2 col-sm-3">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ path('clients_homepage') }}">Jismen</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapsible">
+        <ul class="nav navbar-nav">
+          <li><a href="">Nouveautés</a></li>
+          <li><a href="">Bons plans</a></li>
+          <li><a href="">VIP</a></li>
+          <li>
+            <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expended="false">
+              Catégories
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock navbar %}
+
+  <div class="container-fluid">
+    <div id="main" class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        {% block body %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  {% block javascripts %}
+  {% javascripts '@jquery' '@bootstrap_js' %}
+  <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+  {% endblock %}
+</body>
+</html>
