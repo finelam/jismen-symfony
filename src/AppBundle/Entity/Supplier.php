@@ -2,46 +2,75 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Supplier
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\SupplierRepository")
  */
 class Supplier
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
 
     /**
      * @var string
-     */
-    private $city;
-
-    /**
-     * @var string
+     *
+     * @ORM\Column(name="postal_code", type="string", length=5)
      */
     private $postalCode;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=100)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contract", type="string", length=100)
      */
     private $contract;
 
     /**
-     * @var string
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="supplier")
      */
-    private $clientNumber;
+    private $products;
 
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
      * Get id
@@ -102,30 +131,6 @@ class Supplier
     }
 
     /**
-     * Set city
-     *
-     * @param string $city
-     *
-     * @return Supplier
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
      * Set postalCode
      *
      * @param string $postalCode
@@ -147,6 +152,30 @@ class Supplier
     public function getPostalCode()
     {
         return $this->postalCode;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Supplier
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 
     /**
@@ -174,26 +203,36 @@ class Supplier
     }
 
     /**
-     * Set clientNumber
+     * Add product
      *
-     * @param string $clientNumber
+     * @param \AppBundle\Entity\Product $product
      *
      * @return Supplier
      */
-    public function setClientNumber($clientNumber)
+    public function addProduct(\AppBundle\Entity\Product $product)
     {
-        $this->clientNumber = $clientNumber;
+        $this->products[] = $product;
 
         return $this;
     }
 
     /**
-     * Get clientNumber
+     * Remove product
      *
-     * @return string
+     * @param \AppBundle\Entity\Product $product
      */
-    public function getClientNumber()
+    public function removeProduct(\AppBundle\Entity\Product $product)
     {
-        return $this->clientNumber;
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

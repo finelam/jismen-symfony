@@ -1,8 +1,103 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<h3>
-  Hello {{app.user.username}} !!!
-</h3>
-  C'est ici qu'on va faire de la magie des ordinateurs !
+<section id="section1" class="">
+    <div id="carousel-main" class="carousel slide" data-ride="carousel" data-interval=3000>
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-main" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-main" data-slide-to="1"></li>
+            <li data-target="#carousel-main" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="{{ asset('images/jupe.jpg') }}" alt="">
+                <div class="carousel-caption">
+                    Slide 1
+                </div>
+            </div>
+            <div class="item">
+                <img src="{{ asset('images/bhrama--f-pantalon.jpg') }}" alt="">
+                <div class="carousel-caption">
+                    Slide 2
+                </div>
+            </div>
+            <div class="item">
+                <img src="{{ asset('images/jupe.jpg') }}" alt="">
+                <div class="carousel-caption">
+                    Slide 3
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-main" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-main" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+        </a>
+    </div>
+</section>
+
+<section id="section2" class="globalPadding">
+    {% if news %}
+        <div class="col-sm-12 bg-grey pad-b-30">
+            <h3 class="fancy text-center">
+                <span>Nouveautés</span>
+            </h3>
+            <div class="article-list">
+                {% for new in news %}
+                    <div class="mg-bt-30 article">
+                        <a href="{{ path('product_client', {'id': new.id}) }}">
+                            <img src="{{ asset('images/')~new.path }}"/>
+                            <h3>{{ new.name }}</h3>
+                            <p>{{ new.description }}</p>
+                            <p>{{ new.pricettc }} €</p>
+                            <button class="btn btn-jismen-alt col-xs-12"><i class="fa fa-heart"></i> Coup de coeur</button>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="background-home-image">
+        <div class="container-fluid content-text">
+            <div class="col-xs-12  col-sm-4 col-sm-offset-4 center mg-bt-120">
+                <div class="bordered">
+                    <h1>Restez tendance avec notre newsletter mensuelle !</h1>
+                    <a href="" class="btn mg-t-30">
+                        <i class="fa fa-heart-o fa-lg"></i> Je m'inscris !
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if promos %}
+    <div class="col-sm-12 mg-t-30 ">
+        <h3 class="fancy text-center">
+            <span>Bons plans</span>
+        </h3>
+            <div class="article-list">
+                {% for promo in promos %}
+                    <div class="article">
+                        <a href="">
+                            <img src="{{ asset('images/')~promo.path }}"/>
+                            <h3>{{ promo.name }}</h3>
+                            <p>{{ promo.description }}</p>
+                            <p>{{ promo.pricettc }} €</p>
+                            <button class="btn btn-jismen-alt col-xs-12"><i class="fa fa-heart"></i> Coup de coeur</button>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</section>
 {% endblock body %}

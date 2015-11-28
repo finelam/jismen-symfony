@@ -1,0 +1,30 @@
+tva:
+    path:     /
+    defaults: { _controller: "AppBundle:TVA:index" }
+
+tva_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:TVA:show" }
+
+tva_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:TVA:new" }
+
+tva_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:TVA:create" }
+    methods:  POST
+
+tva_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:TVA:edit" }
+
+tva_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:TVA:update" }
+    methods:  [POST, PUT]
+
+tva_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:TVA:delete" }
+    methods:  [POST, DELETE]

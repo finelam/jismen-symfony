@@ -1,3 +1,11 @@
 clients_homepage:
-    path:     /
-    defaults: { _controller: ClientsBundle:Default:index }
+    path:       /
+    defaults:   { _controller: ClientsBundle:Default:index }
+
+category_client:
+    path:       /{id}/categorie/
+    defaults:   { _controller: ClientsBundle:Default:category }
+
+product_client:
+    path:       /{id}/article/
+    defaults:   { _controller: ClientsBundle:Default:product }

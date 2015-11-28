@@ -1,0 +1,55 @@
+{% extends '::adminbase.html.twig' %}
+
+{% block body -%}
+    <h1>Produit</h1>
+
+    <div class="col-xs-12 col-sm-3">
+        <img class="thumb" src="{{ asset('images/')~entity.path }}" alt="" />
+    </div>
+    <div class="col-xs-12 col-sm-9">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>#</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ entity.name }}</td>
+                </tr>
+                <tr>
+                    <th>Prix HT</th>
+                    <td>{{ entity.priceht }}</td>
+                </tr>
+                <tr>
+                    <th>Quantité</th>
+                    <td>{{ entity.quantity }}</td>
+                </tr>
+                <tr>
+                    <th>Afficher</th>
+                    <td>{{ entity.enabled ? 'Oui' : 'Non' }}</td>
+                </tr>
+                <tr>
+                    <th>VIP</th>
+                    <td>{{ entity.vip ? 'Oui' : 'Non' }}</td>
+                </tr>
+                <tr>
+                    <th>Nouveauté</th>
+                    <td>{{ entity.new ? 'Oui' : 'Non' }}</td>
+                </tr>
+                <tr>
+                    <th>Bon plan</th>
+                    <td>{{ entity.promo ? 'Oui' : 'Non' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="btn-group">
+        <a href="{{ path('product') }}" class="btn btn-primary">
+            Retour à la liste
+        </a>
+        <a href="{{ path('product_edit', { 'id': entity.id }) }}" class="btn btn-warning">
+            Modifier
+        </a>
+    </div>
+{% endblock %}

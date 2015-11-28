@@ -7,3 +7,56 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    admin.article:
+        class: AppBundle\Admin\ArticleAdmin
+        arguments: [~, AppBundle\Entity\Article, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Articles }
+
+    admin.category:
+        class: AppBundle\Admin\CategoryAdmin
+        arguments: [~, AppBundle\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Catégories }
+
+    admin.color:
+        class: AppBundle\Admin\ColorAdmin
+        arguments: [~, AppBundle\Entity\Color, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Couleurs }
+
+    admin.command:
+        class: AppBundle\Admin\CommandAdmin
+        arguments: [~, AppBundle\Entity\Command, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Commandes }
+
+    admin.product:
+        class: AppBundle\Admin\ProductAdmin
+        arguments: [~, AppBundle\Entity\Product, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Product }
+
+    admin.sub_category:
+        class: AppBundle\Admin\Sub_categoryAdmin
+        arguments: [~, AppBundle\Entity\Sub_category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Sous-catégories }
+
+    admin.supplier:
+        class: AppBundle\Admin\SupplierAdmin
+        arguments: [~, AppBundle\Entity\Supplier, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Fournisseurs }
+
+    admin.tva:
+        class: AppBundle\Admin\TVAAdmin
+        arguments: [~, AppBundle\Entity\TVA, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: TVA }
+
+    admin.user:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [~, AppBundle\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Utilisateurs }

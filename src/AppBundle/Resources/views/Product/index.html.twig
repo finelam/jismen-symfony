@@ -1,0 +1,42 @@
+{% extends '::adminbase.html.twig' %}
+
+{% block body -%}
+    <h1>Produits</h1>
+
+    <a href="{{ path('product_new') }}" class="btn btn-jismen">
+        <i class="glyphicon glyphicon-plus-sign"></i> Ajouter
+    </a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Prix HT</th>
+                <th>Quantité</th>
+                <th>Afficher</th>
+                <th>Nouveauté</th>
+                <th>Bon plan</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.priceht }}</td>
+                <td>{{ entity.quantity }}</td>
+                <td>{{ entity.enabled ? 'Oui' : 'Non' }}</td>
+                <td>{{ entity.new ? 'Oui' : 'Non' }}</td>
+                <td>{{ entity.promo ? 'Oui' : 'Non' }}</td>
+                <td>
+                        <a href="{{ path('product_show', { 'id': entity.id }) }}" class="badge"><i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="{{ path('product_edit', { 'id': entity.id }) }}" class="badge"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a href="" class="badge"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock %}

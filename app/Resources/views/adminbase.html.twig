@@ -66,17 +66,15 @@
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapsible">
         <ul class="nav navbar-nav">
-          <li><a href="">Nouveautés</a></li>
-          <li><a href="">Bons plans</a></li>
-          <li><a href="">VIP</a></li>
-          <li>
-            <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expended="false">
-              Catégories
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-            </ul>
-          </li>
+          <li><a href="{{ path('user') }}">Utilisateurs</a></li>
+          <li><a href="{{ path('product') }}">Produits</a></li>
+          <li><a href="{{ path('category') }}">Catégories</a></li>
+          <li><a href="{{ path('sub_category') }}">Sous-Catégories</a></li>
+          <li><a href="{{ path('supplier') }}">Fournisseurs</a></li>
+          <li><a href="{{ path('command') }}">Commandes</a></li>
+          <li><a href="{{ path('color') }}">Couleurs</a></li>
+          <li><a href="{{ path('size') }}">Tailles</a></li>
+          <li><a href="{{ path('tva') }}">Taux de TVA</a></li>
         </ul>
       </div>
     </div>
@@ -85,7 +83,7 @@
 
   <div class="container-fluid">
     <div id="main" class="row">
-      <div class="col-lg-8 col-lg-offset-2">
+      <div class="col-lg-8 col-lg-offset-2 mg-b-30">
         {% block body %}{% endblock %}
       </div>
     </div>

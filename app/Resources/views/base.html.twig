@@ -34,6 +34,7 @@
             <div class="pull-right">
               <ul class="userMenu">
                 {% if app.user %}
+                  <li style="margin-right: 15px;">Bienvenue {{ app.user.username }} ! </li>
                   <li>
                     <a href="">
                       <span class="hidden-xs"> Mon compte </span>
@@ -54,7 +55,7 @@
                     </a>
                   </li>
                   <li class="hidden-xs">
-                    <a href="" data-target="#modal-inscription" data-toggle="modal">Inscription</a>
+                    <a href="{{ path('fos_user_registration_register') }}" data-target="#modal-inscription" data-toggle="modal">Inscription</a>
                   </li>
                 {% endif %}
               </ul>

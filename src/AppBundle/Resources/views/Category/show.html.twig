@@ -1,0 +1,31 @@
+{% extends '::adminbase.html.twig' %}
+
+{% block body -%}
+    <h1>Catégorie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Afficher</th>
+                <td>{{ entity.enabled ? 'Oui' : 'Non' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btn-group">
+        <a href="{{ path('category') }}" class="btn btn-primary">
+            Retour à la liste
+        </a>
+        <a href="{{ path('category_edit', { 'id': entity.id }) }}" class="btn btn-warning">
+            Modifier
+        </a>
+    </div>
+</ul>
+{% endblock %}

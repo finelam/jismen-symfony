@@ -1,0 +1,42 @@
+{% extends '::adminbase.html.twig' %}
+
+{% block body -%}
+    <h1>Commande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Paiement</th>
+                <td>{{ entity.paiement }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ entity.address }}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ entity.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ entity.city }}</td>
+            </tr>
+            <tr>
+                <th>Destinataire</th>
+                <td>{{ entity.recipient }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btn-group">
+        <a href="{{ path('command') }}" class="btn btn-primary">
+            Retour à la liste
+        </a>
+        <a href="{{ path('command_edit', { 'id': entity.id }) }}" class="btn btn-warning">
+            Modifier
+        </a>
+    </div>
+{% endblock %}

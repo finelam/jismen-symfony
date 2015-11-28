@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="globalPadding">
+    <h3 class="fancy">
+        {{ subcat.name }}
+    </h3>
+    {% for product in products %}
+    <div class="mg-bt-30 article">
+        <a href="{{ path('product_client', {'id': product.id}) }}">
+            <img src="{{ asset('images/')~product.path }}"/>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <p>{{ product.pricettc }} €</p>
+            <button class="btn btn-jismen-alt col-xs-12"><i class="fa fa-heart"></i> Coup de coeur</button>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}

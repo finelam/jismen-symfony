@@ -1,0 +1,11 @@
+{% extends '::adminbase.html.twig' %}
+
+{% block body -%}
+    <h1>Nouvelle taille</h1>
+
+    {{ form(form) }}
+
+        <a href="{{ path('size') }}" class="btn btn-jismen">
+            Retour à la liste
+        </a>
+{% endblock %}

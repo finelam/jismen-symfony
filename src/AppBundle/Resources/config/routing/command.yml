@@ -1,0 +1,30 @@
+command:
+    path:     /
+    defaults: { _controller: "AppBundle:Command:index" }
+
+command_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Command:show" }
+
+command_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Command:new" }
+
+command_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Command:create" }
+    methods:  POST
+
+command_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Command:edit" }
+
+command_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Command:update" }
+    methods:  [POST, PUT]
+
+command_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Command:delete" }
+    methods:  [POST, DELETE]

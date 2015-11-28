@@ -1,0 +1,40 @@
+{% extends '::adminbase.html.twig' %}
+
+{% block body -%}
+    <h1>Liste des commandes</h1>
+
+    <a href="{{ path('command_new') }}" class="btn btn-jismen">
+        <i class="glyphicon glyphicon-plus-sign"></i> Ajouter
+    </a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Paiement</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Destinataire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('command_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.paiement }}</td>
+                <td>{{ entity.address }}</td>
+                <td>{{ entity.postalCode }}</td>
+                <td>{{ entity.city }}</td>
+                <td>{{ entity.recipient }}</td>
+                <td>
+                        <a href="{{ path('command_show', { 'id': entity.id }) }}" class="badge"><i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="{{ path('command_edit', { 'id': entity.id }) }}" class="badge"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a href="{{ path('command_edit', { 'id': entity.id }) }}" class="badge"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock %}

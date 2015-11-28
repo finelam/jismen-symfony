@@ -1,0 +1,11 @@
+{% extends '::adminbase.html.twig' %}
+
+{% block body -%}
+    <h1>Nouvelle sous-catégorie</h1>
+
+    {{ form(form) }}
+
+    <a href="{{ path('sub_category') }}" class="btn btn-jismen">
+        Retour à la liste
+    </a>
+{% endblock %}

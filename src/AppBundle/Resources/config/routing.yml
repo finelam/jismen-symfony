@@ -1,3 +1,39 @@
-app_article:
-    resource: "@AppBundle/Resources/config/routing/article.yml"
-    prefix:   /article
+app_user:
+    resource: "@AppBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
+app_tva:
+    resource: "@AppBundle/Resources/config/routing/tva.yml"
+    prefix:   /tva
+
+app_supplier:
+    resource: "@AppBundle/Resources/config/routing/supplier.yml"
+    prefix:   /supplier
+
+app_sub_category:
+    resource: "@AppBundle/Resources/config/routing/sub_category.yml"
+    prefix:   /sub_category
+
+app_size:
+    resource: "@AppBundle/Resources/config/routing/size.yml"
+    prefix:   /size
+
+app_product:
+    resource: "@AppBundle/Resources/config/routing/product.yml"
+    prefix:   /product
+
+app_command:
+    resource: "@AppBundle/Resources/config/routing/command.yml"
+    prefix:   /command
+
+app_color:
+    resource: "@AppBundle/Resources/config/routing/color.yml"
+    prefix:   /color
+
+app_category:
+    resource: "@AppBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+
+admin_index:
+    path: /
+    defaults: { _controller: "AppBundle:Default:index" }

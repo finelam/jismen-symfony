@@ -1,0 +1,30 @@
+supplier:
+    path:     /
+    defaults: { _controller: "AppBundle:Supplier:index" }
+
+supplier_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Supplier:show" }
+
+supplier_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Supplier:new" }
+
+supplier_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Supplier:create" }
+    methods:  POST
+
+supplier_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Supplier:edit" }
+
+supplier_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Supplier:update" }
+    methods:  [POST, PUT]
+
+supplier_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Supplier:delete" }
+    methods:  [POST, DELETE]
