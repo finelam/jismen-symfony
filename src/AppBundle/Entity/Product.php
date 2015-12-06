@@ -117,7 +117,7 @@ class Product
     private $commands;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="favorites")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User", mappedBy="favorites")
      */
     private $favorite_of;
 

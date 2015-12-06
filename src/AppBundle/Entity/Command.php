@@ -58,7 +58,7 @@ class Command
     private $recipient;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="commands")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="commands")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

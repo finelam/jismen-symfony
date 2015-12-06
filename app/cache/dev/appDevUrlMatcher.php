@@ -28,27 +28,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         $request = $this->request;
 
         if (0 === strpos($pathinfo, '/assetic')) {
-            if (0 === strpos($pathinfo, '/assetic/bootstrap_css')) {
-                // _assetic_bootstrap_css
-                if ($pathinfo === '/assetic/bootstrap_css.css') {
-                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css',);
-                }
-
-                if (0 === strpos($pathinfo, '/assetic/bootstrap_css_bootstrap')) {
-                    // _assetic_bootstrap_css_0
-                    if ($pathinfo === '/assetic/bootstrap_css_bootstrap_1.css') {
-                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css_0',);
-                    }
-
-                    // _assetic_bootstrap_css_1
-                    if ($pathinfo === '/assetic/bootstrap_css_bootstrap-theme_2.css') {
-                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => 1,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css_1',);
-                    }
-
-                }
-
-            }
-
             if (0 === strpos($pathinfo, '/assetic/main_css')) {
                 // _assetic_main_css
                 if ($pathinfo === '/assetic/main_css.css') {
@@ -62,6 +41,43 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
+            if (0 === strpos($pathinfo, '/assetic/bootstrap_')) {
+                if (0 === strpos($pathinfo, '/assetic/bootstrap_js')) {
+                    // _assetic_bootstrap_js
+                    if ($pathinfo === '/assetic/bootstrap_js.js') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_js',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_bootstrap_js',);
+                    }
+
+                    // _assetic_bootstrap_js_0
+                    if ($pathinfo === '/assetic/bootstrap_js_bootstrap_1.js') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_js',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_bootstrap_js_0',);
+                    }
+
+                }
+
+                if (0 === strpos($pathinfo, '/assetic/bootstrap_css')) {
+                    // _assetic_bootstrap_css
+                    if ($pathinfo === '/assetic/bootstrap_css.css') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css',);
+                    }
+
+                    if (0 === strpos($pathinfo, '/assetic/bootstrap_css_bootstrap')) {
+                        // _assetic_bootstrap_css_0
+                        if ($pathinfo === '/assetic/bootstrap_css_bootstrap_1.css') {
+                            return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css_0',);
+                        }
+
+                        // _assetic_bootstrap_css_1
+                        if ($pathinfo === '/assetic/bootstrap_css_bootstrap-theme_2.css') {
+                            return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_css',  'pos' => 1,  '_format' => 'css',  '_route' => '_assetic_bootstrap_css_1',);
+                        }
+
+                    }
+
+                }
+
+            }
+
             if (0 === strpos($pathinfo, '/assetic/jquery')) {
                 // _assetic_jquery
                 if ($pathinfo === '/assetic/jquery.js') {
@@ -71,19 +87,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 // _assetic_jquery_0
                 if ($pathinfo === '/assetic/jquery_jquery_1.js') {
                     return array (  '_controller' => 'assetic.controller:render',  'name' => 'jquery',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_jquery_0',);
-                }
-
-            }
-
-            if (0 === strpos($pathinfo, '/assetic/bootstrap_js')) {
-                // _assetic_bootstrap_js
-                if ($pathinfo === '/assetic/bootstrap_js.js') {
-                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_js',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_bootstrap_js',);
-                }
-
-                // _assetic_bootstrap_js_0
-                if ($pathinfo === '/assetic/bootstrap_js_bootstrap_1.js') {
-                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'bootstrap_js',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_bootstrap_js_0',);
                 }
 
             }
@@ -260,66 +263,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         if (0 === strpos($pathinfo, '/admin')) {
-            if (0 === strpos($pathinfo, '/admin/user')) {
-                // user
-                if (rtrim($pathinfo, '/') === '/admin/user') {
-                    if (substr($pathinfo, -1) !== '/') {
-                        return $this->redirect($pathinfo.'/', 'user');
-                    }
-
-                    return array (  '_controller' => 'AppBundle\\Controller\\UserController::indexAction',  '_route' => 'user',);
-                }
-
-                // user_show
-                if (preg_match('#^/admin/user/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_show')), array (  '_controller' => 'AppBundle\\Controller\\UserController::showAction',));
-                }
-
-                // user_new
-                if ($pathinfo === '/admin/user/new') {
-                    return array (  '_controller' => 'AppBundle\\Controller\\UserController::newAction',  '_route' => 'user_new',);
-                }
-
-                // user_create
-                if ($pathinfo === '/admin/user/create') {
-                    if ($this->context->getMethod() != 'POST') {
-                        $allow[] = 'POST';
-                        goto not_user_create;
-                    }
-
-                    return array (  '_controller' => 'AppBundle\\Controller\\UserController::createAction',  '_route' => 'user_create',);
-                }
-                not_user_create:
-
-                // user_edit
-                if (preg_match('#^/admin/user/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_edit')), array (  '_controller' => 'AppBundle\\Controller\\UserController::editAction',));
-                }
-
-                // user_update
-                if (preg_match('#^/admin/user/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
-                    if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
-                        $allow = array_merge($allow, array('POST', 'PUT'));
-                        goto not_user_update;
-                    }
-
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_update')), array (  '_controller' => 'AppBundle\\Controller\\UserController::updateAction',));
-                }
-                not_user_update:
-
-                // user_delete
-                if (preg_match('#^/admin/user/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
-                    if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
-                        $allow = array_merge($allow, array('POST', 'DELETE'));
-                        goto not_user_delete;
-                    }
-
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_delete')), array (  '_controller' => 'AppBundle\\Controller\\UserController::deleteAction',));
-                }
-                not_user_delete:
-
-            }
-
             if (0 === strpos($pathinfo, '/admin/tva')) {
                 // tva
                 if (rtrim($pathinfo, '/') === '/admin/tva') {
